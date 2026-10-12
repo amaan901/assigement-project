@@ -18,11 +18,9 @@ export const TicketDrawer: React.FC<TicketDrawerProps> = ({ ticket, onClose }) =
   const [copied, setCopied] = useState(false);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
-  // Close on Escape key and manage focus
   useEffect(() => {
     if (!ticket) return;
 
-    // Focus close button on open
     closeButtonRef.current?.focus();
 
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -50,7 +48,6 @@ export const TicketDrawer: React.FC<TicketDrawerProps> = ({ ticket, onClose }) =
 
   return (
     <>
-      {/* Backdrop */}
       <div
         onClick={onClose}
         style={{
@@ -59,7 +56,7 @@ export const TicketDrawer: React.FC<TicketDrawerProps> = ({ ticket, onClose }) =
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.65)',
+          backgroundColor: 'rgba(15, 23, 42, 0.4)',
           backdropFilter: 'blur(3px)',
           zIndex: 50,
           transition: 'opacity 0.2s ease',
@@ -67,7 +64,6 @@ export const TicketDrawer: React.FC<TicketDrawerProps> = ({ ticket, onClose }) =
         aria-hidden="true"
       />
 
-      {/* Drawer Panel */}
       <aside
         role="dialog"
         aria-modal="true"
@@ -88,11 +84,10 @@ export const TicketDrawer: React.FC<TicketDrawerProps> = ({ ticket, onClose }) =
           animation: 'slideInRight 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
-        {/* Top Action Bar */}
         <div
           style={{
             padding: '1.25rem 1.75rem',
-            borderBottom: '1px solid var(--border-subtle)',
+            borderBottom: '1px solid var(--border-default)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -105,7 +100,7 @@ export const TicketDrawer: React.FC<TicketDrawerProps> = ({ ticket, onClose }) =
                 fontFamily: 'var(--font-mono)',
                 fontWeight: 700,
                 fontSize: '1rem',
-                color: '#818cf8',
+                color: '#4f46e5',
               }}
             >
               {ticket.id}
@@ -115,8 +110,8 @@ export const TicketDrawer: React.FC<TicketDrawerProps> = ({ ticket, onClose }) =
                 fontSize: '0.75rem',
                 padding: '2px 8px',
                 borderRadius: 'var(--radius-sm)',
-                background: 'var(--bg-app)',
-                border: '1px solid var(--border-subtle)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-default)',
                 color: 'var(--text-secondary)',
               }}
             >
@@ -125,7 +120,6 @@ export const TicketDrawer: React.FC<TicketDrawerProps> = ({ ticket, onClose }) =
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            {/* Copy Deep Link Button */}
             <button
               onClick={handleCopyLink}
               title="Copy deep link to this ticket"
@@ -134,18 +128,17 @@ export const TicketDrawer: React.FC<TicketDrawerProps> = ({ ticket, onClose }) =
                 alignItems: 'center',
                 gap: '0.35rem',
                 padding: '6px 10px',
-                background: 'var(--bg-app)',
+                background: 'var(--bg-surface)',
                 border: '1px solid var(--border-default)',
                 borderRadius: 'var(--radius-sm)',
                 fontSize: '0.78rem',
-                color: copied ? '#34d399' : 'var(--text-secondary)',
+                color: copied ? '#16a34a' : 'var(--text-secondary)',
               }}
             >
               {copied ? <Check size={14} /> : <Share2 size={14} />}
               <span>{copied ? 'Link Copied!' : 'Copy Link'}</span>
             </button>
 
-            {/* Close Button */}
             <button
               ref={closeButtonRef}
               onClick={onClose}
@@ -165,7 +158,6 @@ export const TicketDrawer: React.FC<TicketDrawerProps> = ({ ticket, onClose }) =
           </div>
         </div>
 
-        {/* Scrollable Content Body */}
         <div
           style={{
             flex: 1,
@@ -176,7 +168,6 @@ export const TicketDrawer: React.FC<TicketDrawerProps> = ({ ticket, onClose }) =
             gap: '1.5rem',
           }}
         >
-          {/* Title and Badges */}
           <div>
             <h2
               id="drawer-ticket-title"
@@ -215,16 +206,15 @@ export const TicketDrawer: React.FC<TicketDrawerProps> = ({ ticket, onClose }) =
                   fontWeight: 600,
                   color:
                     ticket.priority === 'Urgent'
-                      ? '#f87171'
+                      ? '#b91c1c'
                       : ticket.priority === 'High'
-                      ? '#fb923c'
+                      ? '#c2410c'
                       : 'var(--text-secondary)',
                 }}
               >
                 Priority: {ticket.priority}
               </span>
 
-              {/* SLA status */}
               <span
                 style={{
                   display: 'inline-flex',
@@ -232,8 +222,9 @@ export const TicketDrawer: React.FC<TicketDrawerProps> = ({ ticket, onClose }) =
                   gap: '4px',
                   padding: '4px 10px',
                   borderRadius: 'var(--radius-sm)',
-                  background: isBreached ? 'rgba(239, 68, 68, 0.15)' : 'rgba(16, 185, 129, 0.15)',
-                  color: isBreached ? '#f87171' : '#34d399',
+                  background: isBreached ? '#fef2f2' : '#ecfdf5',
+                  color: isBreached ? '#dc2626' : '#16a34a',
+                  border: `1px solid ${isBreached ? '#fca5a5' : '#a7f3d0'}`,
                   fontSize: '0.8rem',
                   fontWeight: 600,
                 }}
@@ -248,13 +239,12 @@ export const TicketDrawer: React.FC<TicketDrawerProps> = ({ ticket, onClose }) =
             </div>
           </div>
 
-          {/* Customer & Reporter Card */}
           <div
             style={{
               padding: '1.25rem',
               background: 'var(--bg-surface-elevated)',
               borderRadius: 'var(--radius-md)',
-              border: '1px solid var(--border-subtle)',
+              border: '1px solid var(--border-default)',
               display: 'flex',
               flexDirection: 'column',
               gap: '0.75rem',
@@ -274,7 +264,7 @@ export const TicketDrawer: React.FC<TicketDrawerProps> = ({ ticket, onClose }) =
                   alignItems: 'center',
                   justifyContent: 'center',
                   fontWeight: 700,
-                  color: '#fff',
+                  color: '#ffffff',
                   fontSize: '0.85rem',
                 }}
               >
@@ -302,7 +292,6 @@ export const TicketDrawer: React.FC<TicketDrawerProps> = ({ ticket, onClose }) =
             </div>
           </div>
 
-          {/* Issue Description */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             <div style={{ fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', color: 'var(--text-muted)' }}>
               Issue Details & Diagnostics
@@ -310,12 +299,12 @@ export const TicketDrawer: React.FC<TicketDrawerProps> = ({ ticket, onClose }) =
             <div
               style={{
                 padding: '1.25rem',
-                background: 'var(--bg-app)',
+                background: 'var(--bg-surface-elevated)',
                 borderRadius: 'var(--radius-md)',
-                border: '1px solid var(--border-subtle)',
+                border: '1px solid var(--border-default)',
                 fontSize: '0.88rem',
                 lineHeight: 1.6,
-                color: 'var(--text-secondary)',
+                color: 'var(--text-primary)',
                 whiteSpace: 'pre-wrap',
                 fontFamily: 'var(--font-sans)',
               }}
@@ -324,7 +313,6 @@ export const TicketDrawer: React.FC<TicketDrawerProps> = ({ ticket, onClose }) =
             </div>
           </div>
 
-          {/* Tags */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             <div style={{ fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', color: 'var(--text-muted)' }}>
               Tags & Labels
@@ -348,20 +336,19 @@ export const TicketDrawer: React.FC<TicketDrawerProps> = ({ ticket, onClose }) =
             </div>
           </div>
 
-          {/* Resolution Notes if available */}
           {ticket.resolutionNotes && (
             <div
               style={{
                 padding: '1.25rem',
-                background: 'rgba(16, 185, 129, 0.08)',
+                background: '#f0fdf4',
                 borderRadius: 'var(--radius-md)',
-                border: '1px solid rgba(16, 185, 129, 0.3)',
+                border: '1px solid #bbf7d0',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '0.5rem',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#34d399', fontWeight: 600, fontSize: '0.85rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#16a34a', fontWeight: 600, fontSize: '0.85rem' }}>
                 <CheckCircle size={15} />
                 <span>Resolution Audit Notes</span>
               </div>
@@ -371,12 +358,11 @@ export const TicketDrawer: React.FC<TicketDrawerProps> = ({ ticket, onClose }) =
             </div>
           )}
 
-          {/* Metadata Footer */}
           <div
             style={{
               marginTop: 'auto',
               paddingTop: '1rem',
-              borderTop: '1px solid var(--border-subtle)',
+              borderTop: '1px solid var(--border-default)',
               display: 'flex',
               justifyContent: 'space-between',
               fontSize: '0.75rem',

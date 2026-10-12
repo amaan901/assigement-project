@@ -45,7 +45,7 @@ export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.7)',
+          backgroundColor: 'rgba(15, 23, 42, 0.4)',
           backdropFilter: 'blur(4px)',
           zIndex: 60,
         }}
@@ -80,7 +80,7 @@ export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-            <Keyboard size={20} color="#818cf8" />
+            <Keyboard size={20} color="#4f46e5" />
             <h2
               id="shortcuts-modal-title"
               style={{
@@ -116,7 +116,7 @@ export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({
                 padding: '8px 12px',
                 background: 'var(--bg-surface-elevated)',
                 borderRadius: 'var(--radius-sm)',
-                border: '1px solid var(--border-subtle)',
+                border: '1px solid var(--border-default)',
               }}
             >
               <span style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
@@ -124,13 +124,13 @@ export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({
               </span>
               <kbd
                 style={{
-                  background: 'var(--bg-app)',
+                  background: 'var(--bg-surface)',
                   border: '1px solid var(--border-default)',
                   borderRadius: '4px',
                   padding: '2px 8px',
                   fontSize: '0.75rem',
                   fontFamily: 'var(--font-mono)',
-                  color: '#a5b4fc',
+                  color: '#4f46e5',
                   fontWeight: 600,
                 }}
               >
@@ -148,7 +148,7 @@ export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({
             color: 'var(--text-muted)',
           }}
         >
-          Press <kbd style={{ padding: '1px 5px', borderRadius: '3px', background: 'var(--bg-app)' }}>Esc</kbd> anytime to dismiss
+          Press <kbd style={{ padding: '1px 5px', borderRadius: '3px', background: 'var(--bg-surface-elevated)', border: '1px solid var(--border-default)' }}>Esc</kbd> anytime to dismiss
         </div>
       </div>
     </>

@@ -28,7 +28,6 @@ export const Pagination: React.FC<PaginationProps> = ({
   const startItem = totalRecords === 0 ? 0 : (currentPage - 1) * pageSize + 1;
   const endItem = Math.min(currentPage * pageSize, totalRecords);
 
-  // Generate visible page numbers with ellipsis
   const getPageNumbers = () => {
     const pages: (number | string)[] = [];
     const maxButtons = 5;
@@ -62,21 +61,18 @@ export const Pagination: React.FC<PaginationProps> = ({
         justifyContent: 'space-between',
         padding: '1rem 2rem',
         background: 'var(--bg-surface)',
-        borderTop: '1px solid var(--border-subtle)',
+        borderTop: '1px solid var(--border-default)',
         gap: '1rem',
         fontSize: '0.85rem',
       }}
     >
-      {/* Left: Summary text */}
       <div style={{ color: 'var(--text-secondary)' }}>
         Showing <strong>{startItem.toLocaleString()}</strong> to{' '}
         <strong>{endItem.toLocaleString()}</strong> of{' '}
         <strong>{totalRecords.toLocaleString()}</strong> tickets
       </div>
 
-      {/* Center: Page numbers */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-        {/* First Page */}
         <button
           onClick={() => onPageChange(1)}
           disabled={currentPage === 1 || isFetching}
@@ -94,7 +90,6 @@ export const Pagination: React.FC<PaginationProps> = ({
           <ChevronsLeft size={15} />
         </button>
 
-        {/* Previous Page */}
         <button
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1 || isFetching}
@@ -112,7 +107,6 @@ export const Pagination: React.FC<PaginationProps> = ({
           <ChevronLeft size={15} />
         </button>
 
-        {/* Page Buttons */}
         {getPageNumbers().map((p, idx) => {
           if (p === '...') {
             return (
@@ -154,7 +148,6 @@ export const Pagination: React.FC<PaginationProps> = ({
           );
         })}
 
-        {/* Next Page */}
         <button
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage >= totalPages || isFetching}
@@ -172,7 +165,6 @@ export const Pagination: React.FC<PaginationProps> = ({
           <ChevronRight size={15} />
         </button>
 
-        {/* Last Page */}
         <button
           onClick={() => onPageChange(totalPages)}
           disabled={currentPage >= totalPages || isFetching}
@@ -191,7 +183,6 @@ export const Pagination: React.FC<PaginationProps> = ({
         </button>
       </div>
 
-      {/* Right: Page size selector */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
         <label htmlFor="pageSize-select" style={{ color: 'var(--text-muted)' }}>
           Rows per page:

@@ -55,7 +55,7 @@ export const SimulationToolbar: React.FC<SimulationToolbarProps> = ({
       aria-label="Network Simulation Controls & Real-time Telemetry"
       style={{
         background: 'var(--bg-surface)',
-        borderBottom: '1px solid var(--border-subtle)',
+        borderBottom: '1px solid var(--border-default)',
         padding: '0.6rem 2rem',
         display: 'flex',
         flexWrap: 'wrap',
@@ -65,14 +65,12 @@ export const SimulationToolbar: React.FC<SimulationToolbarProps> = ({
         fontSize: '0.8rem',
       }}
     >
-      {/* Simulation Controls */}
       <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#818cf8', fontWeight: 600 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#4f46e5', fontWeight: 600 }}>
           <Radio size={15} />
           <span>Network Simulator:</span>
         </div>
 
-        {/* Latency dropdown */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
           <label htmlFor="sim-latency" style={{ color: 'var(--text-muted)' }}>
             Latency:
@@ -97,7 +95,6 @@ export const SimulationToolbar: React.FC<SimulationToolbarProps> = ({
           </select>
         </div>
 
-        {/* Failure rate dropdown */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
           <label htmlFor="sim-fail" style={{ color: 'var(--text-muted)' }}>
             Failure Rate:
@@ -121,7 +118,6 @@ export const SimulationToolbar: React.FC<SimulationToolbarProps> = ({
           </select>
         </div>
 
-        {/* Force next fail CTA */}
         <button
           onClick={handleTriggerFail}
           title="Force the next network request to return HTTP 500 error"
@@ -130,20 +126,19 @@ export const SimulationToolbar: React.FC<SimulationToolbarProps> = ({
             alignItems: 'center',
             gap: '0.35rem',
             padding: '3px 10px',
-            background: nextWillFail ? 'rgba(239, 68, 68, 0.25)' : 'var(--bg-surface-elevated)',
+            background: nextWillFail ? '#fee2e2' : 'var(--bg-surface-elevated)',
             border: nextWillFail ? '1px solid #ef4444' : '1px solid var(--border-default)',
-            color: nextWillFail ? '#f87171' : 'var(--text-secondary)',
+            color: nextWillFail ? '#b91c1c' : 'var(--text-secondary)',
             borderRadius: 'var(--radius-sm)',
             fontSize: '0.76rem',
             fontWeight: 500,
           }}
         >
-          <AlertTriangle size={13} color={nextWillFail ? '#f87171' : '#f59e0b'} />
+          <AlertTriangle size={13} color={nextWillFail ? '#b91c1c' : '#d97706'} />
           <span>{nextWillFail ? 'Next request will fail!' : 'Force 500 Error'}</span>
         </button>
       </div>
 
-      {/* Real-time Telemetry Counters */}
       <div
         style={{
           display: 'flex',
@@ -157,63 +152,58 @@ export const SimulationToolbar: React.FC<SimulationToolbarProps> = ({
           Telemetry:
         </span>
 
-        {/* In-Flight Active Requests */}
         <div
           title="Active requests currently in flight"
           style={{
             display: 'flex',
             alignItems: 'center',
             gap: '0.3rem',
-            color: stats.activeRequests > 0 ? '#38bdf8' : 'var(--text-muted)',
+            color: stats.activeRequests > 0 ? '#0284c7' : 'var(--text-muted)',
           }}
         >
           <Zap size={13} />
           <span>Active: <strong>{stats.activeRequests}</strong></span>
         </div>
 
-        {/* Aborted / Superseded Requests */}
         <div
           title="Superseded requests cancelled via AbortController / ignored"
           style={{
             display: 'flex',
             alignItems: 'center',
             gap: '0.3rem',
-            color: stats.abortedRequests > 0 ? '#f59e0b' : 'var(--text-muted)',
+            color: stats.abortedRequests > 0 ? '#d97706' : 'var(--text-muted)',
           }}
         >
           <XCircle size={13} />
           <span>Canceled: <strong>{stats.abortedRequests}</strong></span>
         </div>
 
-        {/* Failed Requests */}
         <div
           title="Simulated network failures (1 in 10 requests)"
           style={{
             display: 'flex',
             alignItems: 'center',
             gap: '0.3rem',
-            color: stats.failedRequests > 0 ? '#f87171' : 'var(--text-muted)',
+            color: stats.failedRequests > 0 ? '#dc2626' : 'var(--text-muted)',
           }}
         >
           <AlertTriangle size={13} />
           <span>Failed: <strong>{stats.failedRequests}</strong></span>
         </div>
 
-        {/* Completed Requests */}
         <div
           title="Total completed responses"
           style={{
             display: 'flex',
             alignItems: 'center',
             gap: '0.3rem',
-            color: stats.completedRequests > 0 ? '#34d399' : 'var(--text-muted)',
+            color: stats.completedRequests > 0 ? '#16a34a' : 'var(--text-muted)',
           }}
         >
           <CheckCircle2 size={13} />
           <span>Done: <strong>{stats.completedRequests}</strong></span>
         </div>
 
-        {/* Last Latency */}
         {stats.lastLatencyMs !== null && (
           <div
             title="Simulated latency of the most recent request"

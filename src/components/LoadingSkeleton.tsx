@@ -28,7 +28,7 @@ export const LoadingSkeleton: React.FC<LoadingSkeletonProps> = ({ rows = 10 }) =
             gap: '1rem',
             padding: '12px 16px',
             borderRadius: 'var(--radius-sm)',
-            borderBottom: '1px solid var(--border-subtle)',
+            borderBottom: '1px solid var(--border-default)',
           }}
         >
           <div className="skeleton-box" style={{ height: '18px', width: '80%' }} />

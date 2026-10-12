@@ -75,7 +75,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({ searchQuery, onReset }) 
           borderRadius: 'var(--radius-md)',
           fontSize: '0.85rem',
           fontWeight: 600,
-          boxShadow: '0 0 15px var(--brand-glow)',
+          boxShadow: '0 2px 8px var(--brand-glow)',
         }}
       >
         <RotateCcw size={15} />

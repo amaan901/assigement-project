@@ -34,16 +34,13 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   onResetFilters,
   statusCounts,
 }) => {
-  // Local state for immediate typing response, debounced to URL
   const [localSearch, setLocalSearch] = useState(filters.q);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  // Synchronize local search if URL search changes externally (e.g. popstate back/forward or reset)
   useEffect(() => {
     setLocalSearch(filters.q);
   }, [filters.q]);
 
-  // Handle keyboard shortcut '/' to focus search
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (
@@ -61,7 +58,6 @@ export const FilterBar: React.FC<FilterBarProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Debounced search trigger (300ms)
   useEffect(() => {
     if (localSearch === filters.q) return;
 
@@ -92,7 +88,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
       style={{
         padding: '1rem 2rem',
         background: 'var(--bg-surface)',
-        borderBottom: '1px solid var(--border-subtle)',
+        borderBottom: '1px solid var(--border-default)',
         display: 'flex',
         flexWrap: 'wrap',
         alignItems: 'center',
@@ -101,7 +97,6 @@ export const FilterBar: React.FC<FilterBarProps> = ({
       }}
     >
       <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.75rem', flex: 1 }}>
-        {/* Search Input Box */}
         <div
           style={{
             position: 'relative',
@@ -123,7 +118,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             }}
           >
             {isDebouncing ? (
-              <Loader2 size={16} className="animate-spin" color="#818cf8" />
+              <Loader2 size={16} className="animate-spin" color="#4f46e5" />
             ) : (
               <Search size={16} />
             )}
@@ -170,7 +165,6 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           )}
         </div>
 
-        {/* Status Dropdown */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
           <label htmlFor="filter-status" className="sr-only">
             Filter by status
@@ -198,7 +192,6 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           </select>
         </div>
 
-        {/* Priority Dropdown */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
           <label htmlFor="filter-priority" className="sr-only">
             Filter by priority
@@ -226,7 +219,6 @@ export const FilterBar: React.FC<FilterBarProps> = ({
           </select>
         </div>
 
-        {/* Category Dropdown */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
           <label htmlFor="filter-category" className="sr-only">
             Filter by category
@@ -255,7 +247,6 @@ export const FilterBar: React.FC<FilterBarProps> = ({
         </div>
       </div>
 
-      {/* Reset Filter Button */}
       {isFiltered && (
         <button
           onClick={onResetFilters}

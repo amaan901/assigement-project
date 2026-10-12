@@ -68,7 +68,6 @@ export function useUrlState() {
   const [filters, setFiltersState] = useState<TicketFilters>(initial.current.filters);
   const [selectedId, setSelectedIdState] = useState<string | null>(initial.current.selectedId);
 
-  // Sync state when browser navigation occurs (popstate)
   useEffect(() => {
     const onPopState = () => {
       const parsed = parseUrlParams(window.location.search);

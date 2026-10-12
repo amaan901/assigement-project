@@ -10,10 +10,6 @@ interface LiveRegionProps {
   searchQuery?: string;
 }
 
-/**
- * Screen Reader Live Region.
- * Dynamically announces state changes to assistive tech using aria-live="polite".
- */
 export const LiveRegion: React.FC<LiveRegionProps> = ({
   isLoading,
   isFetching,

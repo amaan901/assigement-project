@@ -20,13 +20,9 @@ export function useTickets(filters: TicketFilters): UseTicketsResult {
   const [error, setError] = useState<string | null>(null);
   const [lastFetchedAt, setLastFetchedAt] = useState<Date | null>(null);
 
-  // Manual trigger counter for retry
   const [retryTrigger, setRetryTrigger] = useState(0);
 
-  // AbortController to cancel superseded requests
   const abortControllerRef = useRef<AbortController | null>(null);
-
-  // Monotonically increasing request ID to ignore superseded responses
   const latestRequestIdRef = useRef<number>(0);
 
   const retry = useCallback(() => {
@@ -34,7 +30,6 @@ export function useTickets(filters: TicketFilters): UseTicketsResult {
   }, []);
 
   useEffect(() => {
-    // 1. Cancel previous in-flight request
     if (abortControllerRef.current) {
       abortControllerRef.current.abort();
     }
@@ -42,19 +37,14 @@ export function useTickets(filters: TicketFilters): UseTicketsResult {
     const controller = new AbortController();
     abortControllerRef.current = controller;
 
-    // 2. Increment request ID
     const currentRequestId = ++latestRequestIdRef.current;
 
-    // 3. Update loading states honestly
-    // If we have no data or had an error, show full loading. Otherwise show fetching indicator.
     setIsLoading(data.length === 0 && !error);
     setIsFetching(true);
     setError(null);
 
-    // 4. Fire API request
     fetchTickets(filters, controller.signal)
       .then((response) => {
-        // Race condition guard: ignore if a newer request has started
         if (currentRequestId !== latestRequestIdRef.current) {
           return;
         }
@@ -67,25 +57,21 @@ export function useTickets(filters: TicketFilters): UseTicketsResult {
         setLastFetchedAt(new Date());
       })
       .catch((err: unknown) => {
-        // Race condition guard: ignore if a newer request has started
         if (currentRequestId !== latestRequestIdRef.current) {
           return;
         }
 
-        // If explicitly aborted, do nothing as a newer request is already taking over
         if (err instanceof DOMException && err.name === 'AbortError') {
           return;
         }
 
-        // Honest Error State: A failed request shows a clear message & retry,
-        // and NEVER leaves old data looking current!
         const errorMessage =
           err instanceof Error
             ? err.message
             : 'An unexpected network error occurred while fetching tickets.';
 
         setError(errorMessage);
-        setData([]); // Clear data so old data doesn't pretend to be current
+        setData([]);
         setMeta(null);
         setIsLoading(false);
         setIsFetching(false);
@@ -94,7 +80,6 @@ export function useTickets(filters: TicketFilters): UseTicketsResult {
     return () => {
       controller.abort();
     };
-    // Include all filter fields and retryTrigger
   }, [
     filters.q,
     filters.status,

@@ -34,12 +34,12 @@ export const ErrorState: React.FC<ErrorStateProps> = ({
           width: '64px',
           height: '64px',
           borderRadius: '50%',
-          background: 'rgba(239, 68, 68, 0.15)',
-          border: '1px solid rgba(239, 68, 68, 0.35)',
+          background: '#fef2f2',
+          border: '1px solid #fca5a5',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: '#f87171',
+          color: '#dc2626',
         }}
       >
         <AlertTriangle size={32} />
@@ -50,7 +50,7 @@ export const ErrorState: React.FC<ErrorStateProps> = ({
           style={{
             fontSize: '1.2rem',
             fontWeight: 700,
-            color: '#f87171',
+            color: '#dc2626',
             marginBottom: '0.5rem',
           }}
         >
@@ -91,7 +91,7 @@ export const ErrorState: React.FC<ErrorStateProps> = ({
             borderRadius: 'var(--radius-md)',
             fontSize: '0.86rem',
             fontWeight: 600,
-            boxShadow: '0 0 15px var(--brand-glow)',
+            boxShadow: '0 2px 8px var(--brand-glow)',
           }}
         >
           <RefreshCw size={15} className={isRetrying ? 'animate-spin' : ''} />

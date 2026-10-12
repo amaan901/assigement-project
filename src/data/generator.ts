@@ -7,7 +7,6 @@ import type {
   TicketCustomer,
 } from '../types/ticket';
 
-// Deterministic Pseudo-Random Number Generator (Mulberry32)
 function createSeededRandom(seed: number) {
   let s = seed;
   return function () {
@@ -123,10 +122,6 @@ const TAG_POOL = [
   'webhook', 'mobile', 'safari', 'high-priority', 'regression', 'reviewed'
 ];
 
-/**
- * Generates deterministic 12,500 tickets.
- * Runs in ~10ms in memory, providing a rich, realistic dataset.
- */
 export function generateTickets(count = 12500): Ticket[] {
   const random = createSeededRandom(42);
   const tickets: Ticket[] = [];
@@ -158,14 +153,12 @@ export function generateTickets(count = 12500): Ticket[] {
       organization: company,
     };
 
-    // Priority weighted distribution
     const pRoll = random();
     const priority: TicketPriority =
       pRoll < 0.12 ? 'Urgent' :
       pRoll < 0.38 ? 'High' :
       pRoll < 0.75 ? 'Medium' : 'Low';
 
-    // Status distribution
     const sRoll = random();
     const status: TicketStatus =
       sRoll < 0.28 ? 'Open' :
@@ -175,20 +168,16 @@ export function generateTickets(count = 12500): Ticket[] {
 
     const assignee = ASSIGNEES[Math.floor(random() * ASSIGNEES.length)];
 
-    // Timestamps
     const createdOffset = Math.floor(random() * ONE_YEAR);
     const createdTime = now - createdOffset;
     const updatedTime = createdTime + Math.floor(random() * (now - createdTime));
     const createdAt = new Date(createdTime).toISOString();
     const updatedAt = new Date(updatedTime).toISOString();
 
-    // SLA Remaining (hours)
-    // Urgent tickets have tighter SLA
     const slaBase = priority === 'Urgent' ? 8 : priority === 'High' ? 24 : priority === 'Medium' ? 48 : 96;
     const elapsedHours = (now - createdTime) / (1000 * 60 * 60);
     const slaHoursRemaining = Number((slaBase - (elapsedHours % (slaBase * 2))).toFixed(1));
 
-    // Tags (2 to 4 unique tags)
     const numTags = 2 + Math.floor(random() * 3);
     const tagSet = new Set<string>();
     if (priority === 'Urgent') tagSet.add('sla-risk');

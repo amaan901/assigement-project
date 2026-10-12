@@ -22,21 +22,18 @@ export const App: React.FC = () => {
   const [selectedTicket, setSelectedTicket] = useState<Ticket | null>(null);
   const [isShortcutsOpen, setIsShortcutsOpen] = useState(false);
 
-  // Sync selectedTicket with selectedId (handles deep link or row click)
   useEffect(() => {
     if (!selectedId) {
       setSelectedTicket(null);
       return;
     }
 
-    // Check if ticket is already in current data slice
     const existing = data.find((t) => t.id === selectedId);
     if (existing) {
       setSelectedTicket(existing);
       return;
     }
 
-    // Otherwise fetch by ID (for deep links to tickets on other pages)
     let isCancelled = false;
     fetchTicketById(selectedId).then((ticket) => {
       if (!isCancelled && ticket) {
@@ -49,7 +46,6 @@ export const App: React.FC = () => {
     };
   }, [selectedId, data]);
 
-  // Global '?' key listener for keyboard shortcuts modal
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (
@@ -133,7 +129,6 @@ export const App: React.FC = () => {
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      {/* Screen Reader ARIA Live Region */}
       <LiveRegion
         isLoading={isLoading}
         isFetching={isFetching}
@@ -144,17 +139,14 @@ export const App: React.FC = () => {
         searchQuery={filters.q}
       />
 
-      {/* Main Header */}
       <Header
         totalCount={meta?.total ?? 12500}
         isFetching={isFetching}
         onOpenShortcuts={() => setIsShortcutsOpen(true)}
       />
 
-      {/* Network Simulation & Telemetry Bar */}
-      <SimulationToolbar onForceFail={retry} />
 
-      {/* Search & Filter Bar */}
+
       <FilterBar
         filters={filters}
         onFilterChange={handleFilterUpdate}
@@ -162,7 +154,6 @@ export const App: React.FC = () => {
         statusCounts={meta?.statusCounts}
       />
 
-      {/* Main Data Content Area */}
       <main id="main-content" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         {error ? (
           <ErrorState
@@ -202,13 +193,11 @@ export const App: React.FC = () => {
         )}
       </main>
 
-      {/* Deep-Linked Detail Drawer */}
       <TicketDrawer
         ticket={selectedTicket}
         onClose={handleCloseDrawer}
       />
 
-      {/* Keyboard Shortcuts Dialog */}
       <KeyboardShortcutsModal
         isOpen={isShortcutsOpen}
         onClose={() => setIsShortcutsOpen(false)}

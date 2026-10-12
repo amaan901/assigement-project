@@ -58,9 +58,9 @@ export const TicketTable: React.FC<TicketTableProps> = ({
       return <ArrowUpDown size={14} style={{ opacity: 0.3 }} />;
     }
     return sortOrder === 'asc' ? (
-      <ArrowUp size={14} color="#818cf8" />
+      <ArrowUp size={14} color="#4f46e5" />
     ) : (
-      <ArrowDown size={14} color="#818cf8" />
+      <ArrowDown size={14} color="#4f46e5" />
     );
   };
 
@@ -76,9 +76,9 @@ export const TicketTable: React.FC<TicketTableProps> = ({
         width: '100%',
         overflowX: 'auto',
         background: 'var(--bg-surface)',
+        padding: '0px 20px'
       }}
     >
-      {/* Background fetching progress bar */}
       {isFetching && (
         <div
           style={{
@@ -87,7 +87,7 @@ export const TicketTable: React.FC<TicketTableProps> = ({
             left: 0,
             right: 0,
             height: '2px',
-            background: 'linear-gradient(90deg, #6366f1, #a855f7, #6366f1)',
+            background: 'linear-gradient(90deg, #4f46e5, #9333ea, #4f46e5)',
             backgroundSize: '200% 100%',
             animation: 'shimmer 1.2s infinite',
             zIndex: 30,
@@ -270,10 +270,10 @@ export const TicketTable: React.FC<TicketTableProps> = ({
                 onClick={() => onSelectTicket(ticket)}
                 onKeyDown={(e) => handleKeyDown(e, idx, ticket)}
                 style={{
-                  borderBottom: '1px solid var(--border-subtle)',
+                  borderBottom: '1px solid var(--border-default)',
                   cursor: 'pointer',
                   background: isSelected
-                    ? 'rgba(99, 102, 241, 0.16)'
+                    ? 'rgba(79, 70, 229, 0.08)'
                     : 'transparent',
                   transition: 'background-color 0.1s ease',
                 }}
@@ -284,18 +284,16 @@ export const TicketTable: React.FC<TicketTableProps> = ({
                   if (!isSelected) e.currentTarget.style.backgroundColor = 'transparent';
                 }}
               >
-                {/* ID */}
                 <td style={{ padding: '14px 16px', fontWeight: 600, fontFamily: 'var(--font-mono)' }}>
                   <span
                     style={{
-                      color: isSelected ? '#a5b4fc' : '#818cf8',
+                      color: isSelected ? '#4338ca' : '#4f46e5',
                     }}
                   >
                     {ticket.id}
                   </span>
                 </td>
 
-                {/* Title & Customer */}
                 <td style={{ padding: '14px 16px' }}>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
                     <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>
@@ -312,7 +310,7 @@ export const TicketTable: React.FC<TicketTableProps> = ({
                             background: 'var(--bg-surface-elevated)',
                             padding: '1px 6px',
                             borderRadius: '4px',
-                            border: '1px solid var(--border-subtle)',
+                            border: '1px solid var(--border-default)',
                             fontSize: '0.72rem',
                           }}
                         >
@@ -323,27 +321,22 @@ export const TicketTable: React.FC<TicketTableProps> = ({
                   </div>
                 </td>
 
-                {/* Category */}
                 <td style={{ padding: '14px 16px', color: 'var(--text-secondary)' }}>
                   {ticket.category}
                 </td>
 
-                {/* Priority */}
                 <td style={{ padding: '14px 16px' }}>
                   <PriorityBadge priority={ticket.priority} />
                 </td>
 
-                {/* Status */}
                 <td style={{ padding: '14px 16px' }}>
                   <StatusBadge status={ticket.status} />
                 </td>
 
-                {/* SLA */}
                 <td style={{ padding: '14px 16px' }}>
                   <SlaBadge hours={ticket.slaHoursRemaining} />
                 </td>
 
-                {/* Created At */}
                 <td style={{ padding: '14px 16px', color: 'var(--text-muted)', fontSize: '0.8rem' }}>
                   {new Date(ticket.createdAt).toLocaleDateString('en-US', {
                     month: 'short',
@@ -441,11 +434,11 @@ const SlaBadge: React.FC<{ hours: number }> = ({ hours }) => {
         alignItems: 'center',
         gap: '4px',
         fontSize: '0.76rem',
-        color: isBreached ? '#f87171' : hours < 12 ? '#fb923c' : 'var(--text-secondary)',
+        color: isBreached ? '#dc2626' : hours < 12 ? '#d97706' : 'var(--text-secondary)',
         fontWeight: isBreached ? 600 : 400,
       }}
     >
-      {isBreached ? <AlertCircle size={12} color="#f87171" /> : <Clock size={12} />}
+      {isBreached ? <AlertCircle size={12} color="#dc2626" /> : <Clock size={12} />}
       <span>{isBreached ? 'Breached' : `${hours}h`}</span>
     </span>
   );

@@ -32,8 +32,8 @@ export interface Ticket {
   category: TicketCategory;
   customer: TicketCustomer;
   assignee: TicketAssignee;
-  createdAt: string; // ISO String
-  updatedAt: string; // ISO String
+  createdAt: string;
+  updatedAt: string;
   slaHoursRemaining: number;
   tags: string[];
   resolutionNotes?: string;
@@ -44,9 +44,9 @@ export type SortOrder = 'asc' | 'desc';
 
 export interface TicketFilters {
   q: string;
-  status: string; // 'all' or TicketStatus
-  priority: string; // 'all' or TicketPriority
-  category: string; // 'all' or TicketCategory
+  status: string;
+  priority: string;
+  category: string;
   sortBy: SortField;
   sortOrder: SortOrder;
   page: number;
